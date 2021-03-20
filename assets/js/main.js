@@ -4,7 +4,7 @@ const add_task_button = document.querySelector('#add-task-button')
 const tasks_list = document.querySelector('ul')
 const delete_all = document.querySelector('#delete-all')
 const beep_sound = document.getElementsByTagName('audio')[0]
-const remember_button = document.querySelector('remember-alarm-button')
+const remember_button = document.querySelector('.remember-alarm-button')
 
 // Event Listeners
 remember_button.addEventListener('click', ()=>{
