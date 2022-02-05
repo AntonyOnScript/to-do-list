@@ -1,13 +1,11 @@
-// variables
-const input_text = document.querySelector('#task-input')
-const add_task_button = document.querySelector('#add-task-button')
-const tasks_list = document.querySelector('ul')
-const delete_all = document.querySelector('#delete-all')
-const beep_sound = document.getElementsByTagName('audio')[0]
-const remember_button = document.querySelector('.remember-alarm-button')
+const inputText = document.querySelector('#task-input')
+const addTaskButton = document.querySelector('#add-task-button')
+const taskList = document.querySelector('ul')
+const deleteAll = document.querySelector('#delete-all')
+const beepSound = document.getElementsByTagName('audio')[0]
+const rememberButton = document.querySelector('.remember-alarm-button')
 
-// Event Listeners
-remember_button.addEventListener('click', ()=>{
+rememberButton.addEventListener('click', ()=>{
     clearInterval(remember_interval)
 })
 
@@ -19,74 +17,77 @@ document.addEventListener('click', (e)=>{
     }
 })
 
-delete_all.addEventListener('click',()=>{
+deleteAll.addEventListener('click',()=>{
     localStorage.clear()
     location.reload()
 })
 
-input_text.addEventListener('keydown', (e)=>{
+inputText.addEventListener('keydown', (e)=>{
     if(e.key === 'Enter'){
-        createTask(input_text.value)
+        createTask(inputText.value)
         clearInput()
     }
 })
 
-add_task_button.addEventListener('click', ()=>{
-    createTask(input_text.value)
+addTaskButton.addEventListener('click', ()=>{
+    createTask(inputText.value)
 })
 
-// functions
 function createLi(txt){
     let li = document.createElement('li')
-    let delete_button = document.createElement('button')
+    let deleteButton = document.createElement('button')
     li.innerText = txt
-    delete_button.innerText = 'Delete task'
-    delete_button.setAttribute('id', 'delete-button')
-    li.appendChild(delete_button)
+    deleteButton.innerText = 'Delete task'
+    deleteButton.setAttribute('id', 'delete-button')
+    li.appendChild(deleteButton)
     return li
 }
 
 function createTask(txt){
     let li = createLi(txt)
-    tasks_list.appendChild(li)
+    taskList.appendChild(li)
     localSave()
     clearInput()
 }
 
 function localSave(){
-    let all_tasks = tasks_list.querySelectorAll('li')
-    let all_tasks_array = []
-    for(let i of all_tasks){
-        all_tasks_array.push(i.innerText.replace('Delete task',''))
+    let allTasks = taskList.querySelectorAll('li')
+    let alltaskArrays = []
+    for(let i of allTasks){
+        alltaskArrays.push(i.innerText.replace('Delete task',''))
     }
-    localStorage.setItem('tasks', JSON.stringify(all_tasks_array))
+    localStorage.setItem('tasks', JSON.stringify(alltaskArrays))
 }
+
 function localLoad(){
-    let all_tasks = localStorage.getItem('tasks')
-    all_tasks= JSON.parse(all_tasks)
-    if(all_tasks!==null){
-        for(let i of all_tasks){
+    let allTasks = localStorage.getItem('tasks')
+    allTasks= JSON.parse(allTasks)
+    if(allTasks!==null){
+        for(let i of allTasks){
             createTask(i)
         }
     }
 }
+
 function clearInput(){
-    input_text.value=''
-    input_text.focus()
+    inputText.value=''
+    inputText.focus()
 }
+
 function rememberMyTasks(){
     let tasks = localStorage.getItem('tasks')
-    let tasks_array = JSON.parse(tasks)
-    let tasks_string=''
-    for(let i of tasks_array){
-        tasks_string+=i+' '
+    let taskArrays = JSON.parse(tasks)
+    let taskStrings =''
+    for(let i of taskArrays){
+        taskStrings +=i+' '
     }
-    beep_sound.volume=0.5
-    beep_sound.play()
-    alert(`You still need to do: ${tasks_string}`)
+    beepSound.volume = 1
+    beepSound.play()
+    alert(`You still need to do: ${taskStrings}`)
 }
-// set a interval, which each twenty minutes remember your tasks
+
 const remember_interval = setInterval(() => {
     rememberMyTasks()
-}, (20*60000));
+}, (10 * 60 * 1000))
+
 localLoad()
