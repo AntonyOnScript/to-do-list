@@ -6,20 +6,30 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>To-do List</title>
   <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
 </head>
 
 <body>
 
   <section class="container">
-    <h1>Tasks list</h1>
-    <div>
-      <input type="text" id="task-input"/>
-      <button id="add-task-button">Add task</button>
+    <div class="title-container">
+      <h1 class="animate__animated animate__zoomIn animate__duration-2s">Tasks list</h1>
     </div>
-    <ul></ul>
-    <button id='delete-all'>Delete all</button>
-    <audio src="assets/audio/beep.mp3" style="visibility: hidden;"></audio>
-    <button style="margin-top: 30px;" class="remember-alarm-button">Turn off remember alarm</button>
+    <div class="content-container animate__animated animate__jackInTheBox animate__duration-2s">
+      <div class="input-task-container">
+        <input type="text" id="task-input"/>
+        <button id="add-task-button">Add task</button>
+      </div>
+      <ul></ul>
+      <audio src="assets/audio/beep.mp3" style="visibility: hidden;"></audio>
+      <div style="margin-top: 30px;">
+        <button id='delete-all'>Delete all</button>
+        <button class="remember-alarm-button">Turn off remember alarm</button>
+      </div>
+      <p class="notice-text animate__animated animate__fadeIn animate__duration-2">Remember interval sings at each 30 minutes</p>
+      <p class="notice-text" style="display: none; margin: 0;">Remember interval is disabled</p>
+    </div>
   </section>
   <script src="./assets/js/main.js"></script>
 </body>

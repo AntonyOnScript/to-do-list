@@ -4,8 +4,11 @@ const taskList = document.querySelector('ul')
 const deleteAll = document.querySelector('#delete-all')
 const beepSound = document.getElementsByTagName('audio')[0]
 const rememberButton = document.querySelector('.remember-alarm-button')
+const noticeTextDisabledAlert = document.querySelectorAll('.notice-text')[1]
 
 rememberButton.addEventListener('click', ()=>{
+    noticeTextDisabledAlert.style.display = 'block'
+    noticeTextDisabledAlert.classList.add('animate__animated', 'animate__fadeIn')
     clearInterval(remember_interval)
 })
 
@@ -23,23 +26,29 @@ deleteAll.addEventListener('click',()=>{
 })
 
 inputText.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter'){
+    if(e.key === 'Enter' && inputText.value.length > 0){
         createTask(inputText.value)
         clearInput()
     }
 })
 
 addTaskButton.addEventListener('click', ()=>{
-    createTask(inputText.value)
+    if(inputText.value.length > 0) createTask(inputText.value)
 })
 
 function createLi(txt){
     let li = document.createElement('li')
-    let deleteButton = document.createElement('button')
-    li.innerText = txt
-    deleteButton.innerText = 'Delete task'
+    let textSpan = document.createElement('span')
+    let deleteButton = document.createElement('i')
+    
+    deleteButton.classList.add('mdi', 'mdi-close')
     deleteButton.setAttribute('id', 'delete-button')
+    
+    textSpan.innerText = txt
+    
     li.appendChild(deleteButton)
+    li.appendChild(textSpan)
+    
     return li
 }
 
